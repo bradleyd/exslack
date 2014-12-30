@@ -13,7 +13,7 @@ defmodule Exslack.HttpHandler do
    end
 
    defp build_method_and_params(options) do
-     options.method <> "?" <> build_query_params(options)
+     build_method(options) <> "?" <> build_query_params(options)
    end
 
    defp build_method(options) do
@@ -21,11 +21,16 @@ defmodule Exslack.HttpHandler do
    end
 
    defp build_form_params(params) do
-     {:form, Map.to_list(params)}
+     {:form, 
+       Map.to_list(params) |> 
+       Dict.delete(:method) 
+     }
    end
 
    defp build_query_params(params) do
-     Enum.map(Map.to_list(params), fn {k,v} -> ("#{k}=#{v}") end ) |>
+     Map.to_list(params) |>
+     Dict.delete(:method) |>
+     Enum.map(fn {k,v} -> ("#{k}=#{v}") end ) |>
      Enum.join("&")
    end
 

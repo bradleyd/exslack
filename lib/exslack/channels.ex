@@ -12,7 +12,7 @@ defmodule Exslack.Channels do
   iex> Exslack.Channels.find(token, "foo")
   """
   def find(token, channel_id) do
-    HttpHandler.request(:get, %{method: "channels.info", token: token, channel_id: channel_id})
+    HttpHandler.request(:get, %{method: "channels.info", token: token, channel: channel_id})
   end
 
   @doc """
