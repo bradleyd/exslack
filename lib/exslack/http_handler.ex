@@ -4,14 +4,19 @@ defmodule Exslack.HttpHandler do
    def request(method, options) do
      case method do
        :get ->
-         HTTPoison.get(@uri <> build_options(options)) |> handle_response
+         HTTPoison.get(@uri <> build_method_and_params(options)) |> handle_response
        _ ->
          {:error, "unknown"}
      end
    end
 
-   defp build_options(options) do
-     options.url <> "?" <> "token=#{options.token}"
+   defp build_method_and_params(options) do
+     options.method <> "?" <> build_params(options)
+   end
+
+   defp build_params(params) do
+     Enum.map(Map.to_list(params), fn {k,v} -> ("#{k}=#{v}") end ) |>
+     Enum.join("&")
    end
 
    defp handle_response(response) do
