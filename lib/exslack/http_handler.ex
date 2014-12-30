@@ -17,11 +17,18 @@ defmodule Exslack.HttpHandler do
    defp handle_response(response) do
      case response do
        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-         IO.inspect body
+         decode_body(body)
        {:ok, %HTTPoison.Response{status_code: 404}} ->
          IO.puts "Not found :("
        {:error, %HTTPoison.Error{reason: reason}} ->
-         IO.inspect reason
+         {:error, reason}
+     end
+   end
+
+   defp decode_body(body) do
+     case JSON.decode(body) do
+       {:ok, body} ->
+         {:ok, body}
      end
    end
 end

@@ -26,6 +26,6 @@ defmodule Exslack.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:httpoison, "~> 0.5"}]
+    [{:httpoison, "~> 0.5"}, {:json, "~> 0.3.0"}]
   end
 end
