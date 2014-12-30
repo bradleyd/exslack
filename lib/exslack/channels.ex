@@ -31,7 +31,7 @@ defmodule Exslack.Channels do
   ### Example
   iex> Exslack.Channels.leave(token, "foo")
   """
-  def join(token, channel_id) do
+  def leave(token, channel_id) do
     HttpHandler.request(:post, %{method: "channels.leave", token: token, channel_id: channel_id})
   end
 

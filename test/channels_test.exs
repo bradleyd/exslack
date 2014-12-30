@@ -12,7 +12,7 @@ defmodule ExslackChannelTest do
   test "get channels.info" do
     {:ok, results } = Exslack.Channels.find(System.get_env("TOKEN"), "ishouldnotexistatall")
     assert Map.get(results, "ok") == false
-    assert Map.has_key?(results, "error")
+    assert %{"error" => "channel_not_found", "ok" => false} == results
   end
 
   ## note this will create a channel by that name if it does not exist
@@ -22,8 +22,9 @@ defmodule ExslackChannelTest do
   end
 
   test "post channels.leave" do
-    {:ok, results } = Exslack.Channels.leave(System.get_env("TOKEN"), "api-test")
-    assert Map.get(results, "ok") == true
+    {:ok, results } = Exslack.Channels.leave(System.get_env("TOKEN"), "iamnotachannelid")
+    assert Map.get(results, "ok") == false
+    assert %{"error" => "channel_not_found", "ok" => false} == results
   end
 end
  
