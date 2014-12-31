@@ -14,6 +14,14 @@ Exslack
 {:ok, results } = Exslack.Channels.all("my_auth_token")
 ```
 
+#### Find
+
+Takes a token and channel id
+
+```elixir
+{:ok, results } = Exslack.Channels.find("my_auth_token", "ishouldnotexistatall")
+```
+
 ### Chat
 
 #### Post a message
