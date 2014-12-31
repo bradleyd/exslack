@@ -22,5 +22,10 @@ Exslack
 {:ok, results } = Exslack.Chat.send("my_auth_token", %{text: "hello world", channel: "notachannelid"})
 ```
 
+#### Delete a message
+
+```elixir
+{:ok, results } = Exslack.Chat.delete("my_auth_token", %{ts: "1401383885.000061", channel: "notachannelid"})
+```
 
 
